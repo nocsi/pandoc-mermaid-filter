@@ -62,7 +62,7 @@ class MermaidInline(object):
             fn = os.path.abspath(fn)
             linkto = os.path.abspath(".".join([self.basename, _format])).replace("\\", "/")
 
-            command = "mmdc -i {} {} -o {}".format(fn, mermaid_option, linkto)
+            command = "{} -i {} {} -o {}".format(MERMAID_BIN, fn, mermaid_option, linkto)
             pf.debug(command)
             sp.Popen(command, shell=True, stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
 
