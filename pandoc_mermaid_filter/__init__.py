@@ -65,8 +65,9 @@ class MermaidInline(object):
             command = "{} -i {} {} -o {}".format(MERMAID_BIN, fn, mermaid_option, linkto)
             pf.debug(command)
             p1 = sp.Popen(command, shell=True, stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
-            exit_codes = p1.wait()
-            print(exit_codes)
+            #exit_codes = p1.wait()
+            (output, err) = p1.communicate()
+            print(output)
 
             pf.debug("[inline] generate mermaid from {} to {}".format(fn, linkto))
             elem.classes.remove("mermaid")
