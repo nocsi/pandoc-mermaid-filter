@@ -68,7 +68,7 @@ class MermaidInline(object):
             pf.debug(command)
             sp.Popen(command, shell=True, stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
 
-            pf.debug("[inline] generate memeraid from {} to {}".format(fn, linkto))
+            pf.debug("[inline] generate mermaid from {} to {}".format(fn, linkto))
             elem.classes.remove("mermaid")
             elem = pf.Image(*caption, classes=elem.classes, url=linkto,
                             identifier=elem.identifier, title="fig:", attributes=elem.attributes)
