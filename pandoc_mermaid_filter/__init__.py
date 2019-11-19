@@ -6,6 +6,7 @@ import sys
 import hashlib
 import subprocess as sp
 import panflute as pf
+import monotonic as timer from time
 from shutil import which
 
 MERMAID_BIN = os.path.expanduser(os.environ.get('MERMAID_BIN', 'mmdc'))
@@ -63,11 +64,19 @@ class MermaidInline(object):
             linkto = os.path.abspath(".".join([self.basename, _format])).replace("\\", "/")
 
             command = "{} -i {} {} -o {}".format(MERMAID_BIN, fn, mermaid_option, linkto)
+            start = timer()
             pf.debug(command)
-            p1 = sp.Popen(command, shell=True, stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
+            with sp.Popen(command, shell=True, stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE) as process:
+                try:
+                    output = process.communicate(timeout=3)[0]
+                except TimeoutExpired:
+                    os.killpg(process.pid, signal.SIGINT)
+                    output = process.communicate()[0]
+            print('Elapsed: {:.2f}'.format(timer() - start))
+            #output = sp.check_output(command, shell=True, stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
             #exit_codes = p1.wait()
-            (output, err) = p1.communicate()
-            print(output)
+            #(output, err) = p1.communicate()
+            #print(output)
 
             pf.debug("[inline] generate mermaid from {} to {}".format(fn, linkto))
             elem.classes.remove("mermaid")
