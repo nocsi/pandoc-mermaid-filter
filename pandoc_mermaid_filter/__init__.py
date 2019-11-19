@@ -9,7 +9,7 @@ import panflute as pf
 from shutil import which
 
 MERMAID_BIN = os.path.expanduser(os.environ.get('MERMAID_BIN', 'mmdc'))
-PUPPETEER_CFG = os.environ.get('PUPPETEER_CFG')
+PUPPETEER_CFG = os.path.expanduser(os.environ.get('PUPPETEER_CFG', None))
 
 class MermaidInline(object):
     """
@@ -45,12 +45,10 @@ class MermaidInline(object):
 
             mermaid_option = " ".join([
                 "--theme {}".format(theme) if theme is not None else "",
-                "--backgroundColor {}".format(background_color) if background_color is not None else ""
+                "--backgroundColor {}".format(background_color) if background_color is not None else "",
+                "--puppeteerConfigFile {}".format(PUPPETEER_CFG) if PUPPETEER_CFG is not None else ""
                 #"--cssFile {}".format(css) if css is not None else ""
             ])
-
-            if PUPPETEER_CFG is not None:
-                mermaid_option.join("--puppeteerConfigFile {}".format(PUPPETEER_CFG))
 
             if not os.path.exists(self.dir_to):
                 os.mkdir(self.dir_to)
