@@ -66,14 +66,15 @@ class MermaidInline(object):
             command = "{} -i {} {} -o {}".format(MERMAID_BIN, fn, mermaid_option, linkto)
             start = timer()
             pf.debug(command)
-            with sp.Popen(command, shell=True, stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE) as process:
-                try:
-                    output = process.communicate(timeout=3)[0]
-                except TimeoutExpired:
-                    os.killpg(process.pid, signal.SIGINT)
-                    output = process.communicate()[0]
-            print('Elapsed: {:.2f}'.format(timer() - start))
-            #output = sp.check_output(command, shell=True, stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
+            #with sp.Popen(command, shell=True, stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE) as process:
+            #    try:
+            #        output = process.communicate(timeout=1)[0]
+            #    except TimeoutExpired:
+            #        os.killpg(process.pid, signal.SIGINT)
+            #        output = process.communicate()[0]
+            #print('Elapsed: {:.2f}'.format(timer() - start))
+            output = sp.check_output(command, shell=True)
+            print(output)
             #exit_codes = p1.wait()
             #(output, err) = p1.communicate()
             #print(output)
