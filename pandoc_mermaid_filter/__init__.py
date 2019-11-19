@@ -70,7 +70,7 @@ class MermaidInline(object):
 
             pf.debug("[inline] generate memeraid from {} to {}".format(fn, linkto))
             elem.classes.remove("mermaid")
-            elem = pf.Image(*capion, classes=elem.classes, url=linkto,
+            elem = pf.Image(*caption, classes=elem.classes, url=linkto,
                             identifier=elem.identifier, title="fig:", attributes=elem.attributes)
             return elem
 
