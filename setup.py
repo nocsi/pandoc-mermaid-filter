@@ -167,7 +167,7 @@ setup(
     # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files
     #
     # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
-    data_files=[('bin', ['svgbob/bin/svgbob'])],  # Optional
+    # data_files=[('bin', ['svgbob/bin/svgbob'])],  # Optional
 
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow
@@ -178,7 +178,7 @@ setup(
     # executes the function `main` from this package when invoked:
     entry_points={  # Optional
         'console_scripts': [
-            'pandoc-svgbob-filter=pandoc_svgbob_filter:main',
+            'pandoc-mermaid-filter=pandoc_mermaid_filter:main',
         ],
     },
 
