@@ -6,7 +6,7 @@ import sys
 import hashlib
 import subprocess as sp
 import panflute as pf
-import monotonic as timer from time
+from time import monotonic as timer
 from shutil import which
 
 MERMAID_BIN = os.path.expanduser(os.environ.get('MERMAID_BIN', 'mmdc'))
